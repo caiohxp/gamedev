@@ -4,6 +4,7 @@ const state = {
         enemy: document.querySelector(".enemy"),
         timeLeft: document.querySelector("#time-left"),
         score: document.querySelector("#score"),
+        lives: document.querySelector("#lives")
     },
     value: {
         timerId: null,
@@ -11,6 +12,7 @@ const state = {
         hitPosition: null,
         result: 0,
         currentTime: 60,
+        lives: 3
     }
 };
 
@@ -18,6 +20,12 @@ function timer(){
     setInterval(() => {
         if(state.value.currentTime > 0) state.value.currentTime--;
         else alert(`Game Over! O seu resultado foi ${state.value.result}`);
+        if(state.value.lives <= 0){
+            alert('Game Over! Você Perdeu!');
+            state.value.currentTime = 60;
+            state.value.lives = 3;
+            state.view.lives.textContent = state.value.lives;
+        }
         state.view.timeLeft.textContent = state.value.currentTime;
     },1000)
 }
@@ -47,6 +55,9 @@ function addListenerHitbox() {
                 state.value.result++;
                 state.view.score.textContent = state.value.result;
                 state.values.hitPosition = null;
+            } else{
+                state.value.lives--;
+                state.view.lives.textContent = state.value.lives;
             }
         })
     })
