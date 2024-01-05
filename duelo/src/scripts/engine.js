@@ -39,6 +39,15 @@ function readTextFile(file, callback) {
     rawFile.send(null);
 }
 
+async function resetDuel(){
+    state.cardSprites.avatar.src = "";
+    state.actions.button.style.display = "none";
+
+    state.fieldCards.player.style.display = "none";
+    state.fieldCards.computer.style.display = "none";
+    main();
+}
+
 async function drawCards(cardNumbers, fieldSide){
     for(let i = 0; i < cardNumbers; i++){
         const randomIdCard = Math.floor(Math.random() * cards.length);
@@ -55,8 +64,18 @@ function drawSelectedCard(id){
     state.cardSprites.type.innerText = "Attribute: " + cards[id].type;
 }
 
-function setCardsField(id){
-    // await removeCarsImages();
+function removeAllCardsImages(){
+    let cardBoxes = document.querySelector('.card-box.framed#computer-cards');
+    let imgElements = cardBoxes.querySelectorAll("img");
+    imgElements.forEach(img => img.remove());
+
+    cardBoxes = document.querySelector('#player-cards');
+    imgElements = cardBoxes.querySelectorAll("img");
+    imgElements.forEach(img => img.remove());
+}
+
+async function setCardsField(id){
+    await removeAllCardsImages();
     let computerID = Math.floor(Math.random() * cards.length)
 
     state.fieldCards.player.style.display = "block";
@@ -65,16 +84,22 @@ function setCardsField(id){
     state.fieldCards.player.src = `${pathImages}${cards[id].img}`;
     state.fieldCards.computer.src = `${pathImages}${cards[computerID].img}`;
 
-    checkDuelResults(id, computerID);
+    let duelResults = await checkDuelResults(id, computerID);
 }
 
-function checkDuelResults(playerID, computerID){
-    console.log(cards[playerID].WinOf);
-    console.log(cards[playerID].LoseOf);
-    console.log(cards[computerID].name);
-    if(cards[playerID].WinOf.includes(cards[computerID].type)) state.score.playerScore++;
-    else if(cards[playerID].LoseOf.includes(cards[computerID].type)) state.score.computerScore++;
-
+async function checkDuelResults(playerID, computerID){
+    let duelResult = "Draw";
+    if(cards[playerID].WinOf.includes(cards[computerID].type)){
+        duelResult = "You win";
+        await playAudio("win");
+        state.score.playerScore++;
+    } else if(cards[playerID].LoseOf.includes(cards[computerID].type)){
+        duelResult = "You Lose";
+        await playAudio("lose");
+        state.score.computerScore++;
+    }
+    state.actions.button.innerText = duelResult;
+    state.actions.button.style.display = "block";
     state.score.scoreBox.innerText = `Win ${state.score.playerScore} | Lose ${state.score.computerScore}`;
 }
 
@@ -96,6 +121,11 @@ function createCardImage(idCard, fieldSide){
 
 
     return cardImage;
+}
+
+async function playAudio(status){
+    const audio =  new Audio(`./src/assets/audios/${status}.wav`);
+    audio.play();
 }
 
 function main() {
