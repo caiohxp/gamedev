@@ -1,0 +1,42 @@
+[
+    {
+        "id": 0,
+        "name": "Squirtle",
+        "type": "Water",
+        "img": "squirtle.png",
+        "WinOf": ["Fire", "Ground"],
+        "LoseOf": ["Grass", "Eletric"]
+    },
+    {
+        "id": 1,
+        "name": "Charmander",
+        "type": "Fire",
+        "img": "charmander.png",
+        "WinOf": ["Grass"],
+        "LoseOf": ["Water", "Ground"]
+    },
+    {
+        "id": 2,
+        "name": "Bulbassaur",
+        "type": "Grass",
+        "img": "bulbassaur.png",
+        "WinOf": ["Water", "Ground"],
+        "LoseOf": ["Fire"]
+    },
+    {
+        "id": 3,
+        "name": "Sandshrew",
+        "type": "Ground",
+        "img": "sandshrew.png",
+        "WinOf": ["Fire", "Eletric"],
+        "LoseOf": ["Water", "Grass"]
+    },
+    {
+        "id": 4,
+        "name": "Pikachu",
+        "type": "Eletric",
+        "img": "pikachu.png",
+        "WinOf": ["Water"],
+        "LoseOf": ["Ground"]
+    }
+]
