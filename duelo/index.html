@@ -18,24 +18,41 @@
 <body>
     <div class="bg-video">
         <video class="video" autoplay loop muted>
-            <source src="./src/assets/video/yugi.mp4" type="video/mp4">
+            <source src="./src/assets/video/pokemonbg1.mp4" type="video/mp4">
         </video>
     </div>
     <div class="container">
-        <div class="container__left">
-            <div class="score">
+        <div class="container__left framed-golden-2">
+            <div class="score frame">
                 <span id="score-points">Win: 0 | Lose: 0</span>
             </div>
             <div class="menu-avatar">
                 <img id="card-image" src="" alt="">
             </div>
-            <div class="card-details">
-                <p id="card-name"></p>
-                <p id="card-type"></p>
+            <div class="card-details frame">
+                <p id="card-name">Selecione</p>
+                <p id="card-type">uma carta</p>
             </div>
         </div>
         <div class="container__right">
-            <div class="card-box__container"></div>
+            <div class="card-box__container">
+                <div class="card-box framed" id="computer-cards"></div>
+                <div class="card-versus">
+                    <div class="versus-top">
+                        <div class="card-infield">
+                            <img id="player-field-card">
+                        </div>
+                        <img src="./src/assets/icons/pokeball1.png" height="100px">
+                        <div class="card-infield">
+                            <img id="computer-field-card">
+                        </div>
+                    </div>
+                    <div class="versus-bottom">
+                        <button id="next-duel" class="rpgui-button" onclick="resetDuel()">Ganhou</button>
+                    </div>
+                </div>
+                <div class="card-box framed" id="player-cards"></div>
+            </div>
         </div>
     </div>
     <script src="./src/scripts/engine.js"></script>
