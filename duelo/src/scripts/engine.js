@@ -1,3 +1,9 @@
+const theme = new Audio(`./src/assets/audios/battlemusic.mp3`);
+theme.addEventListener('ended', () => {
+    theme.currentTime = 0;
+    theme.play();
+});
+theme.play();
 const state = {
     score: {
         playerScore: 0,
@@ -50,8 +56,8 @@ async function resetDuel(){
 
 async function drawCards(cardNumbers, fieldSide){
     for(let i = 0; i < cardNumbers; i++){
-        const randomIdCard = Math.floor(Math.random() * cards.length);
-        const cardImage = await createCardImage(randomIdCard, fieldSide);
+        // const randomIdCard = Math.floor(Math.random() * cards.length);
+        const cardImage = await createCardImage(i, fieldSide);
         document.querySelector(`#${fieldSide}`).appendChild(cardImage);
     }
 
@@ -76,7 +82,7 @@ function removeAllCardsImages(){
 
 async function setCardsField(id){
     await removeAllCardsImages();
-    let computerID = Math.floor(Math.random() * cards.length)
+    let computerID = Math.floor(Math.random() * cards.length);
 
     state.fieldCards.player.style.display = "block";
     state.fieldCards.computer.style.display = "block";
@@ -129,6 +135,7 @@ async function playAudio(status){
 }
 
 function main() {
+    
     readTextFile("data.json", function (text) {
         cards = JSON.parse(text);
         drawCards(5, playersSide.player);

@@ -53,10 +53,17 @@
     border: solid 2px #fff;
     border-radius: 10px;
 }
+.side-icons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    gap: 10px;
+}
 
 .card-infield > img {
-    height: 180px;
-    width: 125px;
+    height: 153px;
+    width: 106.25px;
 }
 
 .card-details{
